@@ -1,17 +1,19 @@
 package com.example.googlebooks;
 
+import java.util.ArrayList;
+
 public class BookClass {
     private String mbook_name;
-    private String mbook_author;
+    private ArrayList <String> mbook_author;
 
     // constructor
-    public BookClass (String book_name, String book_author){
+    public BookClass (String book_name, ArrayList<String> book_author){
         mbook_name = book_name;
         mbook_author = book_author;
     }
 
     // getter methods
-    public String getMbook_author() {
+    public ArrayList<String> getMbook_author() {
         return mbook_author;
     }
 

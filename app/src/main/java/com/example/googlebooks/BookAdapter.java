@@ -34,8 +34,20 @@ public class BookAdapter extends ArrayAdapter {
         TextView author_id = (TextView) convertView.findViewById(R.id.author_id);
 
         name_id.setText(book.getMbook_name());
-        author_id.setText(book.getMbook_author());
+        author_id.setText(get_Author_from_array(book.getMbook_author()));
 
         return convertView;
+    }
+
+    public String get_Author_from_array (ArrayList<String> array){
+        String authors = "";
+        for(int i = 0; i< array.size();i++)
+        {
+            if(i < array.size()-1)
+                authors = authors + array.get(i) +", ";
+            else
+                authors = authors + array.get(i);
+        }
+        return  authors;
     }
 }
