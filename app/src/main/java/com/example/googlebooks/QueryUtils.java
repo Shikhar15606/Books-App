@@ -49,12 +49,14 @@ public final class QueryUtils {
                 JSONObject volumeInfo = item.getJSONObject("volumeInfo");
                 String title = volumeInfo.getString("title");
                 JSONArray authors = volumeInfo.getJSONArray("authors");
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                String smallThumbnail = imageLinks.getString("smallThumbnail");
                 ArrayList<String> arr_authors = new ArrayList<String>();
                 for(int j = 0; j< authors.length(); j++)
                 {
                     arr_authors.add(authors.getString(0));
                 }
-                books.add(new BookClass(title,arr_authors));
+                books.add(new BookClass(title,arr_authors,smallThumbnail));
             }
             // build up a list of Earthquake objects with the corresponding data.
 

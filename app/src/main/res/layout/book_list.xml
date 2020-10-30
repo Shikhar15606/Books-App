@@ -5,10 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/book_box"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_alignParentLeft="true"
     android:orientation="horizontal"
     tools:layout_editor_absoluteY="302dp">
+
+    <ImageView
+        android:id="@+id/book_thumbnail"
+        android:layout_width="227dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:srcCompat="@drawable/ic_launcher_background" />
 
     <LinearLayout
         android:id="@+id/name_author_box"
