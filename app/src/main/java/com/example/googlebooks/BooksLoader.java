@@ -24,7 +24,6 @@ public class BooksLoader extends AsyncTaskLoader<ArrayList<BookClass>> {
         if (mUrl == null) {
             return null;
         }
-        // Perform the network request, parse the response, and extract a list of earthquakes.
         ArrayList<BookClass> books = QueryUtils.extractBooks(mUrl);
         return books;
     }

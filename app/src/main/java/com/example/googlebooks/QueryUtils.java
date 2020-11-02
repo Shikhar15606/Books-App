@@ -16,9 +16,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-/**
- * Helper methods related to requesting and receiving earthquake data from USGS.
- */
 public final class QueryUtils {
     private static String SAMPLE_JSON_RESPONSE = "";
 
@@ -39,8 +36,6 @@ public final class QueryUtils {
         ArrayList<BookClass> books = new ArrayList<>();
 
         try {
-
-            // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
             JSONObject response = new JSONObject(SAMPLE_JSON_RESPONSE);
             JSONArray items = response.getJSONArray("items");
             for(int i = 0; i< items.length(); i++)
@@ -54,17 +49,13 @@ public final class QueryUtils {
                 ArrayList<String> arr_authors = new ArrayList<String>();
                 for(int j = 0; j< authors.length(); j++)
                 {
-                    arr_authors.add(authors.getString(0));
+                    arr_authors.add(authors.getString(j));
                 }
                 books.add(new BookClass(title,arr_authors,smallThumbnail));
             }
-            // build up a list of Earthquake objects with the corresponding data.
-
         } catch (JSONException e) {
             Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
         }
-
-        // Return the list of earthquakes
         return books;
     }
 
@@ -80,7 +71,6 @@ public final class QueryUtils {
     }
 
     // Make an HTTP request to the given URL and return a String as the response.
-
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
         // If the URL is null, then return early.

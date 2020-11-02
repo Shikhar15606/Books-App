@@ -11,8 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,14 +38,10 @@ public class BookAdapter extends ArrayAdapter {
 
         name_id.setText(book.getMbook_name());
         author_id.setText(get_Author_from_array(book.getMbook_author()));
-        RequestOptions requestOptions=new RequestOptions();
-        requestOptions.placeholder(R.drawable.ic_launcher_foreground);
-        requestOptions.error(R.drawable.ic_launcher_foreground);
 
-        Glide.with(getContext())
-                .load(book.getMbook_image())
-                .apply(requestOptions)
-                .into(book_thumbnail);
+        Picasso.with(getContext()).load(book.getMbook_image())
+        .placeholder(R.drawable.ic_launcher_background)
+        .into(book_thumbnail);
         return convertView;
     }
 
