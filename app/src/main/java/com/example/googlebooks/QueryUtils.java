@@ -40,18 +40,86 @@ public final class QueryUtils {
             JSONArray items = response.getJSONArray("items");
             for(int i = 0; i< items.length(); i++)
             {
-                JSONObject item = items.getJSONObject(i);
-                JSONObject volumeInfo = item.getJSONObject("volumeInfo");
-                String title = volumeInfo.getString("title");
-                JSONArray authors = volumeInfo.getJSONArray("authors");
-                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-                String smallThumbnail = imageLinks.getString("smallThumbnail");
-                ArrayList<String> arr_authors = new ArrayList<String>();
-                for(int j = 0; j< authors.length(); j++)
-                {
-                    arr_authors.add(authors.getString(j));
+                try {
+                    JSONObject item = items.getJSONObject(i);
+                    JSONObject volumeInfo = item.getJSONObject("volumeInfo");
+                    String title = volumeInfo.getString("title");
+                    JSONArray authors = volumeInfo.getJSONArray("authors");
+                    JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                    String smallThumbnail = imageLinks.getString("smallThumbnail");
+                    String thumbnail = imageLinks.getString("thumbnail");
+
+                    ArrayList<String> arr_authors = new ArrayList<String>();
+                    for (int j = 0; j < authors.length(); j++) {
+                        arr_authors.add(authors.getString(j));
+                    }
+
+
+                    // more info
+                    JSONObject saleInfo;
+                    String buyLink = "null";
+                    String publisher = "null";
+                    String description;
+                    Integer pageCount;
+                    Double averageRating;
+                    Integer ratingsCount;
+                    String previewLink;
+
+
+
+                    try{
+                        saleInfo = item.getJSONObject("saleInfo");
+                        try{
+                            buyLink = saleInfo.getString("buyLink");
+                        }catch (JSONException e){
+                            buyLink = "null";
+                            Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                        }
+                        try{
+                            publisher = saleInfo.getString("publisher");
+                        }catch (JSONException e){
+                            publisher = "null";
+                            Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                        }
+                    }catch (JSONException e){
+                        Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                    }
+
+                    try{
+                        description = volumeInfo.getString("description");
+                    }catch (JSONException e){
+                        description = "null";
+                        Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                    }
+                    try{
+                        pageCount = volumeInfo.getInt("pageCount");
+                    }catch (JSONException e){
+                        pageCount = 0;
+                        Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                    }
+                    try{
+                        averageRating = volumeInfo.getDouble("averageRating");
+                    }catch (JSONException e){
+                        averageRating = 0.0;
+                        Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                    }
+                    try{
+                        ratingsCount = volumeInfo.getInt("ratingsCount");
+                    }catch (JSONException e){
+                        ratingsCount = 0;
+                        Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                    }
+                    try{
+                        previewLink = volumeInfo.getString("previewLink");
+                    }catch (JSONException e){
+                        previewLink = "null";
+                        Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                    }
+                    books.add(new BookClass(title, arr_authors, smallThumbnail, thumbnail, buyLink, publisher, description, pageCount, averageRating, ratingsCount, previewLink));
                 }
-                books.add(new BookClass(title,arr_authors,smallThumbnail));
+                catch (JSONException e) {
+                    Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
+                }
             }
         } catch (JSONException e) {
             Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
